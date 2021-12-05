@@ -7,4 +7,16 @@ My research interests involve many areas of system security. For instance, durin
 More generally, I love learning new things, ranging from low-level technical concepts to new hands-on practical skills. For example, recently I started to write Rust code for fun, despite the fact that as of now I do not have active projects that require Rust development.
 Another consequence of this "everyday learning" mood, led me to play CTFs, especially during the years of M.sc. and PhD, mainly with the NOPS team of Eurecom. As expected, my favorite categories are pwn and reversing.
 
-In my free time, I love hanging out with friends for a beer and practicing sport activities like powerlifting, running and above all surf.
+In my free time, I love hanging out with friends for a beer and practicing sport activities like powerlifting, running and above all surf (and playing guitar, even though I do not have much time to do this).
+
+# Other info
+
+More details about me at the following pages.
+
+
+Visit [this page](https://www.s3.eurecom.fr/~elmanto/) for a list of my pubblications, projects and descriptions.
+
+
+If you want to contact me, take a look at [the contact page](https://elmanto.github.io/test).
+
+Finally, I plan to add a blogpost page eventually, to speak about both technical things and more general points of view. I will add a page for this when I will have some time.
