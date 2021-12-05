@@ -17,6 +17,6 @@ More details about me at the following pages.
 Visit [this page](https://www.s3.eurecom.fr/~elmanto/) for a list of my pubblications, projects and descriptions.
 
 
-If you want to contact me, take a look at [the contact page](https://elmanto.github.io/test).
+If you want to contact me, take a look at [the contact page](https://elmanto.github.io/contact).
 
 Finally, I plan to add a blogpost page eventually, to speak about both technical things and more general points of view. I will add a page for this when I will have some time.
