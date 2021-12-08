@@ -15,6 +15,7 @@ This technique can be used when the source code is not available, for instance i
 
 **Keywords and tools**: Ida, Ghidra, Static Software Testing, Implementation of analysers with Joern and Code-QL, SAST techniques
 
+--------
 
 ### ``RE-Mind: a First Look Inside the Mind of a Reverse Engineer'', A. Mantovani, S. Aonzo, Y. Fratantonio, D. Balzarotti, Usenix 22
 
@@ -24,6 +25,7 @@ For this work, I implemented a system to statically reverse engineer x64 binarie
 **Keywords and tools**: IDA, radare2, Linux reversing.
 
 
+--------
 
 
 ### ``Does Every Second Count? Time-based Evolution of Malware Behavior in Sandboxes'',A. Kuchler, A. Mantovani, Y. Han, L. Bilge, D. Balzarotti, NDSS 21
@@ -35,6 +37,7 @@ My second malware analysis project instead performs a dynamic analysis on a larg
 
 
 
+--------
 
 ### ``Prevalence and Impact of Low-Entropy Packing Schemes in the Malware Ecosystem'', A. Mantovani, S. Aonzo, A. Merlo, X. Ugarte-Pedrero, D. Balzarotti, NDSS 20
 
@@ -47,6 +50,7 @@ The paper shows modern packing schemes and how several malicious files use them 
 
 
 
+--------
 
 
 # Projects
