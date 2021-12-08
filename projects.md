@@ -4,6 +4,7 @@ permalink: /projects
 title: "Projects and Publications"
 ---
 
+Here, I report a list of accepted papers and active projects that I worked on, so far. The list cannot be exhaustive as I cannot make all papers/projects public for several reasons (most typically, the paper is under submission). However, I will try to add the new entries as soon as possible.
 
 # Publications
 
@@ -35,7 +36,7 @@ My second malware analysis project instead performs a dynamic analysis on a larg
 
 
 
-### ``Prevalence and Impact of Low-Entropy Packing Schemes in the Malware Ecosystem'', A. Mantovani, S. Aonzo, A. Merlo, X. Ugarte-Pedrero, D. Balzarotti NDSS 20
+### ``Prevalence and Impact of Low-Entropy Packing Schemes in the Malware Ecosystem'', A. Mantovani, S. Aonzo, A. Merlo, X. Ugarte-Pedrero, D. Balzarotti, NDSS 20
 
 
 For this project, I developed some manual and then automated reverse engineering approaches to understand if a malware is encrypted and which decryption scheme it uses.
