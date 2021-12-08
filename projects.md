@@ -58,8 +58,7 @@ The paper shows modern packing schemes and how several malicious files use them 
 
 ### DARPA CHESS project 
 
-A project that aims at improving automated vulnerability
-approaches thanks to human enhancement (\url{https://www.darpa.mil/program/computers-and-humans-exploring-software-security}).
+A project that aims at improving automated vulnerability approaches thanks to human enhancement ([link](https://www.darpa.mil/program/computers-and-humans-exploring-software-security)).
 
 Main tools and contributions:
 + The first tool consists of a system that helps a fuzzer to bypass complicated checks in the binary code (i.e., source code is not available). First, a gdb script recovers a set of points where the execution of the binary becomes stuck (crc checksums, magic bytes). Then the patching module performs some binary re-writing to modify the control flow of the program according to some policies that can be specified as an input by the analyst.
