@@ -15,6 +15,39 @@ This technique can be used when the source code is not available, for instance i
 **Keywords and tools**: Ida, Ghidra, Static Software Testing, Implementation of analysers with Joern and Code-QL, SAST techniques
 
 
+### ``RE-Mind: a First Look Inside the Mind of a Reverse Engineer'', A. Mantovani, S. Aonzo, Y. Fratantonio, D. Balzarotti, Usenix 22
+
+For this work, I implemented a system to statically reverse engineer x64 binaries and I used it to collect information about how humans tipically perform reverse engineering with the goal of capturing the core aspects and translate these behaviors into automated reverse engineering techniques.
+
+
+**Keywords and tools**: IDA, radare2, Linux reversing.
+
+
+
+
+### ``Does Every Second Count? Time-based Evolution of Malware Behavior in Sandboxes'',A. Kuchler, A. Mantovani, Y. Han, L. Bilge, D. Balzarotti, NDSS 21
+
+
+My second malware analysis project instead performs a dynamic analysis on a large dataset of malware to understand their behavior inside the sandboxes, especially from the point of view of the timing.
+
+**Keywords and tools**: IDA, Reversing, Windows, QEMU, dynamic analysis, binary analysis, PANDA framework, Machine Learning.
+
+
+
+
+### ``Prevalence and Impact of Low-Entropy Packing Schemes in the Malware Ecosystem'', A. Mantovani, S. Aonzo, A. Merlo, X. Ugarte-Pedrero, D. Balzarotti NDSS 20
+
+
+For this project, I developed some manual and then automated reverse engineering approaches to understand if a malware is encrypted and which decryption scheme it uses.
+Our analysis pipeline includes a dynamic analyser, built on top of QEMU, a static analysis component, adopting common off-the-shelf tools such as PEid/DIEC and finally three Machine Learning classifiers, namely, SVM, RF and Neural Networks.
+The paper shows modern packing schemes and how several malicious files use them to bypass common Antivirus detection mechanisms.
+
+**Keywords and tools**:IDA, Reversing, Windows, QEMU, dynamic analysis, binary analysis, PANDA framework, Machine Learning.
+
+
+
+
+
 # Projects
 
 

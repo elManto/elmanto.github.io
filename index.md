@@ -14,8 +14,10 @@ In my free time, I love hanging out with friends for a beer and practicing sport
 More details about me at the following pages.
 
 
-Visit [this page](https://www.s3.eurecom.fr/~elmanto/) for a list of my pubblications, projects and descriptions.
+Visit [this page](https://elmanto.github.io/projects) for a list of my pubblications, projects and descriptions.
 
 If you want to contact me, take a look at [the contact page](https://elmanto.github.io/contact).
+
+For some papers, I kept some artifacts (slides, github repositories) in my [old Eurecom website](https://www.s3.eurecom.fr/~elmanto/). Have a look at it.
 
 Finally, I plan to add a blogpost page eventually, to speak about both technical things and more general points of view. I will add a page for this when I will have some time.
