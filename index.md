@@ -20,4 +20,4 @@ If you want to contact me, take a look at [the contact page](https://elmanto.git
 
 For some papers, I kept some artifacts (slides, github repositories) in my [old Eurecom website](https://www.s3.eurecom.fr/~elmanto/). Have a look at it.
 
-Finally, I plan to add a blogpost page eventually, to speak about both technical things and more general points of view. I will add a page for this when I will have some time.
+Finally, I plan to dedicate some time on a [blogpost](https://elmanto.github.io/posts) page eventually, to speak about both technical things and more general points of view.
