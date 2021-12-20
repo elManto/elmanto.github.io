@@ -7,6 +7,6 @@ title: "Blogpost"
 
 # Posts, Notes and Write-ups
 
-My First post [here](https://elmanto.github.io/_posts/test_post.md)
+My First post [here](https://elmanto.github.io/_posts/welcome.md)
 
 
