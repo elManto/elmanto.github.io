@@ -7,6 +7,6 @@ title: "Blogpost"
 
 # Posts, Notes and Write-ups
 
-My First post [here](https://elmanto.github.io/posts/welcome)
+[The derby of Static Software Testing: Joern vs. Code-ql](https://elmanto.github.io/posts/welcome)
 
 
