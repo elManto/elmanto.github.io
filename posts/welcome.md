@@ -13,7 +13,7 @@ I underline that this blogpost only focuses on C/C++ whereas the two static anal
 
 ## Parsing the source code
 
-Albeit both the tools need to deploy a parsing stage to build their internal representation of the source code, they make use of completely different paradigms.
+Both the tools need to deploy a parsing stage to build their internal representation of the source code. However, to accomplish this, they make use of completely different strategies.
 
 On the one hand, CodeQl requires to compile the project under test. During the actual building, the extractor accomplishes with several tasks. For instance, it constructs a representation of the relation between the source code files and then, for each compiler invocation, it retrieves the useful information such as syntactic data from the AST and semantic data (variables' name, types, ..).
 These are stored in a CodeQl database for further processing and querying.
@@ -28,8 +28,18 @@ However, for large projects the things change a lot. For instance, I tried to ru
 Once I executed Joern on a different machine with much more RAM (128 GB) it could terminate, even though it took something around 24 hours.
 That being said, honestly I have to point out that the actual time to get CodeQl parsing the source code is probably more, as the compilation step failed several times before I could find a correct setup in terms of dependencies, compiler, toolchain, etc.
 
+The fact that CodeQl requires the compilation of the project inherently affects its usability as in general compile a project is not fun and it is very likely that it will take more time to guess the exact configuration to build it.
+This hints that we could prefer Joern to analyse small-to-medium codebases as well as portions of larger ones.
+For example, one may want to statically analyse only the authentication module of a huge project.
+In this scenario Joern is the best and the only thing we have to do is launch it and generate the CPG to query over it.
+But if our necessity is to consider the entire code of a program, then our first try should be more probably with CodeQl, at least in terms of parsing of the source code.
 
+A particularly interesting use case instead, is to statically analyse decompiled code, i.e., the output of a decompiler.
+I focused on this topic for my research paper entitled ``The Convergence of Source Code and Binary Vulnerability Discovery - A Case Study'' and thus I will not go into details.
+The only thing that I let you note is that in this specific case where the pseudocode typically cannot be recompiled, we had to manually fix the decompiler's output before compilation-based tools such as CodeQl could correctly execute.
+Thus, in this scenario, my suggestion is that Joern can probably result in a better feasibility of the approach.
 
+To conclude with this first part, I would say there is definitely no winner, even though according to the situation and the goal of the analysis one tool can do better than the other one.
 
 
 ## Queries
