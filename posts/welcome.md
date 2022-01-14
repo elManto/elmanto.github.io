@@ -4,14 +4,14 @@ permalink: /posts/welcome
 title:  "The Derby of Static Software Testing: Joern vs. CodeQl"
 ---
 
-## The Derby of Static Software Testing: Joern vs CodeQl
+# The Derby of Static Software Testing: Joern vs CodeQl
 
 Albeit I have to confess that my first temptation when looking for bugs in a source code file is to start to grep for `memcpy` or similar things, recently I had fun with two awesome tools for static software testing, namely, [Joern](https://joern.io/) and [CodeQl](https://codeql.github.com/). Both the tools share a similar phylosophy, that is, exporting an expressive domain-specific language to capture some code patterns and let the analyst interact with the code. In this quick blogpost, I will present some of the differences that I noticed when playing with the two tools, trying to give some indications and use-cases for each of the two.
 I underline that this blogpost only focuses on C/C++ whereas the two static analysers function also on other languages (Java, Python, ..).
 
 
 
-## Parsing the source code
+### Parsing the source code
 
 Both the tools need to deploy a parsing stage to build their internal representation of the source code. However, to accomplish this, they make use of completely different strategies.
 
@@ -42,11 +42,11 @@ Thus, in this scenario, my suggestion is that Joern can probably result in a bet
 To conclude with this first part, I would say there is definitely no winner, even though according to the situation and the goal of the analysis one tool can do better than the other one.
 
 
-## Queries
+### Queries
 
 Let's now see some queries and compare how much the syntax is different depending on the two frameworks. I opted to include two case studies, a simple one and a more elaborated one, but for more examples of queries you can have a look at [my repo](https://github.com/elManto/StaticAnalysisQueries).
 
-### Integer overflow causing heap buffer overflow
+#### Integer overflow causing heap buffer overflow
 
 The first example is a bug that was present in `libssh2` in 2012 (I learnt about this bug by reading the Joern paper). In the source code of the library we find the following statements:
 
@@ -107,7 +107,7 @@ This can give us more info about where the variable comes from, for instance, to
   select src.getLocation(), mi
 ```
 
-### Off-by-one heap buffer overflow
+#### Off-by-one heap buffer overflow
 
 For our second use case, we will focus on a slightly more complicated example. Here the bug is an off-by-one overflow that was present in `wireshark` in 2018.
 In the function `de_sub_addr`, we can find a dynamic memory allocation and the result buffer is then passed to the function `IA5_7BIT_decode`:
@@ -180,7 +180,7 @@ Because of the inner structure of the CPG, I had to express the same concept in 
 As you can see, in this case the two models differ a lot and require a different reasoning. 
 From my personal point of view, I found the syntax of CodeQl easier, in addition to the fact that performance-wise Joern took more time to complete the processing.
 
-## Conclusions
+### Conclusions
 
 In this comparison, I wanted to analyse on some of the aspects I faced during my recent work based on Joern/CodeQl on decompiled code. I believe there is no an actual winner of the game in the end, but depending on the situation we can prefer one or the other tool. For instance, Joern can be probably a bit more generic in its syntax, and faster when we want to look for vulns in medium-size codebases, whereas CodeQl is more suitable in contexts where the project size is huge and it exports an easier syntax for non-trivial bugs.
 Finally, both the tools are subject of continuous improvements and we can imagine that future updates will make them always more performant despite the fact that they are already two mature frameworks.
