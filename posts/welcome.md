@@ -35,7 +35,7 @@ In this scenario Joern is the best and the only thing we have to do is launch it
 But if our necessity is to consider the entire code of a program, then our first try should be more probably with CodeQl, at least in terms of parsing of the source code.
 
 A particularly interesting use case instead, is to statically analyse decompiled code, i.e., the output of a decompiler.
-I focused on this topic for my research paper entitled ``The Convergence of Source Code and Binary Vulnerability Discovery - A Case Study'' and thus I will not go into details.
+I focused on this topic for my research paper entitled ``The Convergence of Source Code and Binary Vulnerability Discovery - A Case Study'' ( [link](https://www.s3.eurecom.fr/docs/asiaccs22_mantovani.pdf) ) and thus I will not go into details.
 The only thing that I let you note is that in this specific case where the pseudocode typically cannot be recompiled, we had to manually fix the decompiler's output before compilation-based tools such as CodeQl could correctly execute.
 Thus, in this scenario, my suggestion is that Joern can probably result in a better feasibility of the approach.
 
@@ -43,6 +43,30 @@ To conclude with this first part, I would say there is definitely no winner, eve
 
 
 ## Queries
+
+Let's now see some queries and compare how much the syntax is different depending on the two frameworks. I opted to include two case studies, a simple one and a more elaborated one, but for more examples of queries you can have a look at [my repo](https://github.com/elManto/StaticAnalysisQueries).
+
+### Heap Buffer Overflow
+
+The first example is a bug that was present in `libssh2` in 2012
+
+```c
+  from MacroInvocation mi, Macro alloc, AddExpr add
+  where alloc.hasName("LIBSSH2_ALLOC")
+         and mi.getMacro() = alloc
+         and mi.getExpr().(ExprCall).getArgument(0) = add
+  select src.getLocation(), mi
+```
+
+
+```c
+  cpg
+    .call(".*alloc*.|.*ALLOC*.")
+    .argument
+    .isCallTo("<operator>.addition")
+    .p
+```
+
 
 ```c
   from MacroInvocation mi, Macro alloc, Expr src, AddExpr add
@@ -56,6 +80,8 @@ To conclude with this first part, I would say there is definitely no winner, eve
 
   select src.getLocation(), mi
 ```
+
+
 
 
 ## Conclusions
