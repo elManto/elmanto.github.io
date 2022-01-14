@@ -44,7 +44,19 @@ To conclude with this first part, I would say there is definitely no winner, eve
 
 ## Queries
 
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+```c
+  from MacroInvocation mi, Macro alloc, Expr src, AddExpr add
+  where alloc.hasName("LIBSSH2_ALLOC")
+         and mi.getMacro() = alloc
+         and mi.getExpr().(ExprCall).getArgument(0) = add
+         and  DataFlow::localFlow(DataFlow::exprNode(src),
+              DataFlow::exprNode(mi.getExpr().(ExprCall).getArgument(0))
+              )
+
+
+  select src.getLocation(), mi
+```
+
 
 ## Conclusions
 
