@@ -48,28 +48,54 @@ Let's now see some queries and compare how much the syntax is different dependin
 
 ### Heap Buffer Overflow
 
-The first example is a bug that was present in `libssh2` in 2012
+The first example is a bug that was present in `libssh2` in 2012 (I learnt about this bug by reading the Joern paper). In the source code of the library we find the following statements:
+
+```c
+  uint32_t namelen = _libssh2_ntohu32(data + 9 + sizeof("exit-signal"));
+  ..
+  channelp->exit_signal = LIBSSH2_ALLOC(session, namelen + 1);
+  ..
+  memcpy(channelp->exit_signal, data + 13 + sizeof("exit_signal"), namelen);
+```
+
+Now, we have to keep two things in mind. First, `LIBSSH2_ALLOC` is a wrapper of the `malloc` function and therefore it responsible for the dynamic memory allocation. Second, the variable `namelen` is under control of the attacker and is defined as `uint32_t`. Thus, when a malicious user send data such as that `namelen + 1` results in an integer overflow, the final `memcpy` could produce a heap buffer overflow.
+
+This super classical pattern, present in many CVE reports in different flavors, can be easily detected by both the static analysers.
+An example of query for CodeQl looks like the following snippet:
 
 ```c
   from MacroInvocation mi, Macro alloc, AddExpr add
-  where alloc.hasName("LIBSSH2_ALLOC")
+  where alloc.hasName(".*ALLOC*.")
          and mi.getMacro() = alloc
          and mi.getExpr().(ExprCall).getArgument(0) = add
-  select src.getLocation(), mi
+  select mi
 ```
 
+In the *from* statement, we declare what elements we need. In our case we need a *Macro* variable, to infer some properties of the macro definition, a *MacroInvocation* that represents the set of instancies of that macro when it is invoked in the code, and an *AddExpr* that collects all the addition expressions that we have in the source.
+The next step, is to specify the constraints of our subject in the *where* statement. For this example, we want all macros that contain the string ``ALLOC'' in the name and that, once invoked, use an addition for the 0-th argument.
+Finally, in the *select* statement, we just say what we want to display.
+
+If we wanted to hunt the same bug with Joern, we should write something like:
 
 ```c
   cpg
-    .call(".*alloc*.|.*ALLOC*.")
+    .call(".*ALLOC*.")
     .argument
     .isCallTo("<operator>.addition")
     .p
 ```
 
+Here, we do not have variables as in the previous case, but rather, each field performs a walk on the edges of the CPG. Quickly, we have that the *.call* part retrieves all the calls to a certain method (in our case all methods containing ALLOC), the *.argument* field extracts the arguments of such calls and finally select those ones that represent an addition. The *.p* field just prints out the result.
+
+The base idea behind the two rules is the same - catch the dynamic memory allocations whose argument is an addition. However, even if I kept the queries structure easy to reason about them, they present some differencies.
+The first difference is that in CodeQl I had to explicitly refer the exact argument that we are interested in (*.getArgument(0)*) while Joern allows to refer generically to all arguments of a call.
+The second interesting difference, is that Joern can refer to all the invocations in the CPG with the simple *call* field (thus including both macro and function invocations) while for CodeQl I had to specify the fact that we are interested in a macro.
+
+Of course, both the queries can be improved to reduce the number of false positives and to extract more meaningful information. Even though the goal of the post is not a tutorial on CodeQl/Joern, I propose you a possible simple enhancement of the CodeQl rule, where we use the `DataFlow` library to identify the assignments whose variable is then used for the sum in the memory allocation.
+This can give us more info about where the variable comes from, for instance, to understand if it is under the attacker's control.
 
 ```c
-  from MacroInvocation mi, Macro alloc, Expr src, AddExpr add
+  from MacroInvocation mi, Macro alloc, AssignExpr src, AddExpr add
   where alloc.hasName("LIBSSH2_ALLOC")
          and mi.getMacro() = alloc
          and mi.getExpr().(ExprCall).getArgument(0) = add
@@ -77,12 +103,12 @@ The first example is a bug that was present in `libssh2` in 2012
               DataFlow::exprNode(mi.getExpr().(ExprCall).getArgument(0))
               )
 
-
   select src.getLocation(), mi
 ```
 
+### Off-by-one heap buffer overflow
 
-
+For our second use case, we will focus on a slightly more complicated example.
 
 ## Conclusions
 
