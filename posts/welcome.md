@@ -24,8 +24,8 @@ Now, these two different design choices have a direct impact on the performances
 Let's start with the performances. 
 For small-to-medium projects, the two tools have similar performances.
 For example, it took 22 seconds to generate the CodeQl database for `file`, whereas for Joern it took 19 seconds on a machine with 4 cpus and 16 GB of RAM.
-However, for large projects the things change a lot. For instance, I tried to run the analyzers against the entire `wireshark` codebase and I measured a total of roughly 6 hours for CodeQl while Joern ran out-of-memory on the same machine.
-Once I executed Joern on a different machine with much more RAM (128 GB) it could terminate, even though it took something around 24 hours.
+However, for large projects the things change a lot. For instance, I tried to run the analyzers against the entire `wireshark` codebase and I measured a total of roughly 43 minutes for CodeQl while Joern ran out-of-memory on the same machine.
+Once I executed Joern on a different machine with much more RAM (128 GB) it could terminate, even though it took something around 6 hours.
 That being said, honestly I have to point out that the actual time to get CodeQl parsing the source code is probably more, as the compilation step failed several times before I could find a correct setup in terms of dependencies, compiler, toolchain, etc.
 
 The fact that CodeQl requires the compilation of the project inherently affects its usability as in general compile a project is not fun and it is very likely that it will take more time to guess the exact configuration to build it.
@@ -46,7 +46,7 @@ To conclude with this first part, I would say there is definitely no winner, eve
 
 Let's now see some queries and compare how much the syntax is different depending on the two frameworks. I opted to include two case studies, a simple one and a more elaborated one, but for more examples of queries you can have a look at [my repo](https://github.com/elManto/StaticAnalysisQueries).
 
-### Heap Buffer Overflow
+### Integer overflow causing heap buffer overflow
 
 The first example is a bug that was present in `libssh2` in 2012 (I learnt about this bug by reading the Joern paper). In the source code of the library we find the following statements:
 
@@ -90,6 +90,7 @@ Here, we do not have variables as in the previous case, but rather, each field p
 The base idea behind the two rules is the same - catch the dynamic memory allocations whose argument is an addition. However, even if I kept the queries structure easy to reason about them, they present some differencies.
 The first difference is that in CodeQl I had to explicitly refer the exact argument that we are interested in (*.getArgument(0)*) while Joern allows to refer generically to all arguments of a call.
 The second interesting difference, is that Joern can refer to all the invocations in the CPG with the simple *call* field (thus including both macro and function invocations) while for CodeQl I had to specify the fact that we are interested in a macro.
+Thus, looking at this scenario we learn that from the syntax point of view, Joern is probably a bit more generic than CodeQl.
 
 Of course, both the queries can be improved to reduce the number of false positives and to extract more meaningful information. Even though the goal of the post is not a tutorial on CodeQl/Joern, I propose you a possible simple enhancement of the CodeQl rule, where we use the `DataFlow` library to identify the assignments whose variable is then used for the sum in the memory allocation.
 This can give us more info about where the variable comes from, for instance, to understand if it is under the attacker's control.
@@ -108,8 +109,78 @@ This can give us more info about where the variable comes from, for instance, to
 
 ### Off-by-one heap buffer overflow
 
-For our second use case, we will focus on a slightly more complicated example.
+For our second use case, we will focus on a slightly more complicated example. Here the bug is an off-by-one overflow that was present in `wireshark` in 2018.
+In the function `de_sub_addr`, we can find a dynamic memory allocation and the result buffer is then passed to the function `IA5_7BIT_decode`:
+
+```c
+  *extracted_address = (gchar *)wmem_alloc(wmem_packet_scope(), ia5_string_len);
+  ..
+  IA5_7BIT_decode(*extracted_address, ia5_string, ia5_string_len);
+  ..
+```
+
+The `IA5_7BIT_decode` looks like the following 
+
+```c
+  void IA5_7BIT_decode(unsigned char * dest, const unsigned char* src, int len)
+  {
+      int i, j;
+      gunichar buf;
+  
+      for (i = 0, j = 0; j < len;  j++) {
+          buf = char_def_ia5_alphabet_decode(src[j]);
+          i += g_unichar_to_utf8(buf,&(dest[i]));
+      }
+      dest[i]=0;
+      return;
+  }
+```
+
+As you can see, after iterating for `len` times, the variable `i` evaluates exactly `len`, which in our case, as invoked in the previous snippet of code, is `ia5_string_len`. However, the addressable space in the buffer `*extracted_address` starts at 0 and ends at `ia5_string_len - 1`. Therefore, the assignment `dest[i] = 0` causes an overflow of one single byte at the index `*extracted_address[ia5_string_len].
+
+There are two possible ways to write a rule for this bug. The first standard one, is to use find all the data flows that have the dynamically allocated buffer as the source and an index access to that buffer as the sink. However, the issue with this strategy is that computing the dataflow in an interprocedural context can be very expensive, and indeed this strategy took roughly 4 hours with CodeQl and did not terminate with Joern.
+While in many cases there could be only one way to model a bug, for this situation I thought about a different perspective to reduce the bug to an intraprocedural one, that on average, is way easier to detect.
+Indeed, one possible way to represent the vuln, is that the overflowing memory access uses a variable that is initialized in the header of a for loop, but is used outside the loop.
+Thus, I designed a rule that individuates the variables used as counters within the loop and then identifies all times such variables are used to access a buffer outside the loop.
+Although I was expecting some false positives, this allowed me to do some tests in a more reasonable time, because in this way we can focus separately on each function instead of considering chains of multiple function.
+
+Here, I show the query written for CodeQl:
+
+```c
+  from AssignExpr e, ForStmt f, ArrayExpr ae, Expr src, Variable v
+  where e.getEnclosingStmt() = f.getInitialization()
+        and v.getAnAssignedValue() = e.getRValue()
+
+        and TaintTracking::localTaint(
+            DataFlow::exprNode(v.getAnAssignedValue()),
+            DataFlow::exprNode(ae.getArrayOffset()))
+
+        and not ae.getBasicBlock().inLoop()
+  select ae, v
+```
+
+The idea here is that we compute the dataflow between the counter variable, that we isolate with the statements *e.getEnclosingStmt() = f.getInitialization() as well as *v.getAnAssignedValue() = e.getRValue()*, and the sink that in our case is the index used for the array access (in the snippet, *ae.getArrayOffset()*). To conclude, we declare that the array access must be outside the loop (*not ae.getBasicBlock().inLoop()*).
+
+
+Here instead, the snippet represents the script I used for Joern:
+
+```c
+
+  var loop_array_access = cpg.method.controlStructure.parserTypeName("ForStatement").expressionDown.ast.isCall.filter(x => x.name.equals("<operator>.indirectIndexAccess")).toSet
+  val array_access = cpg.call("<operator>.indirectIndexAccess").where(x => x.argument(2).isIdentifier).toSet
+  var all_vars = cpg.method.controlStructure.parserTypeName("ForStatement").expressionDown.ast.isIdentifier.toSet
+  val buffer_iterator_vars = cpg.call("<operator>.indirectIndexAccess").argument(2).isIdentifier.toSet
+  val real_vars = all_vars.intersect(buffer_iterator_vars).toList
+  array_access.diff(loop_array_access).asInstanceOf[Set[Call]].foreach(elem => println(elem.code, elem.reachableBy(real_vars).code.p))
+
+```
+
+Because of the inner structure of the CPG, I had to express the same concept in a different way. This time I could not create a one-line and I relied on some intermediate variables to create the rule.
+
+As you can see, in this case the two models differ a lot and require a different reasoning. 
+From my personal point of view, I found the syntax of CodeQl easier, in addition to the fact that performance-wise Joern took more time to complete the processing.
 
 ## Conclusions
 
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+In this comparison, I wanted to analyse on some of the aspects I faced during my recent work based on Joern/CodeQl on decompiled code. I believe there is no an actual winner of the game in the end, but depending on the situation we can prefer one or the other tool. For instance, Joern can be probably a bit more generic in its syntax, and faster when we want to look for vulns in medium-size codebases, whereas CodeQl is more suitable in contexts where the project size is huge and it exports an easier syntax for non-trivial bugs.
+Finally, both the tools are subject of continuous improvements and we can imagine that future updates will make them always more performant despite the fact that they are already two mature frameworks.
