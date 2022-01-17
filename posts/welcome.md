@@ -14,7 +14,7 @@ Albeit I have to confess that my first temptation when looking for bugs in a sou
 Before starting with the actual post, I would like to underline two things.
 1. Although both the tools can analyse several languages (Python, Java, ..), I focused my evaluation on C
 2. More importantly, this comparison wants to evaluate these two awesome tools from the usability point of view, rather than the detection capabilities. This second purpose indeed is a bit more tricky to compare, as one can almost always think about a more generic query to catch a certain bug with both the tools
-
+3. Also, this post is not a primer on Joern/CodeQl. I will try to explain all concepts I introduce, but a previous minimal experience on the topic would make the reading easier
 
 
 ### Parsing the source code
