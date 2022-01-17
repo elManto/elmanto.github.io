@@ -7,7 +7,13 @@ title:  "The Derby of Static Software Testing: Joern vs. CodeQl"
 # The Derby of Static Software Testing: Joern vs CodeQl
 
 Albeit I have to confess that my first temptation when looking for bugs in a source code file is to start to grep for `memcpy` or similar things, recently I had fun with two awesome tools for static software testing, namely, [Joern](https://joern.io/) and [CodeQl](https://codeql.github.com/). Both the tools share a similar phylosophy, that is, exporting an expressive domain-specific language to capture some code patterns and let the analyst interact with the code. In this quick blogpost, I will present some of the differences that I noticed when playing with the two tools, trying to give some indications and use-cases for each of the two.
-I underline that this blogpost only focuses on C/C++ whereas the two static analysers function also on other languages (Java, Python, ..).
+
+
+### Scope
+
+Before starting with the actual post, I would like to underline two things.
+1. Although both the tools can analyse several languages (Python, Java, ..), I focused my evaluation on C
+2. More importantly, this comparison wants to evaluate these two awesome tools from the usability point of view, rather than the detection capabilities. This second purpose indeed is a bit more tricky to compare, as one can almost always think about a more generic query to catch a certain bug with both the tools
 
 
 
