@@ -136,11 +136,11 @@ The `IA5_7BIT_decode` looks like the following
   }
 ```
 
-As you can see, after iterating for `len` times, the variable `i` evaluates exactly `len`, which in our case, as invoked in the previous snippet of code, is `ia5_string_len`. However, the addressable space in the buffer `*extracted_address` starts at 0 and ends at `ia5_string_len - 1`. Therefore, the assignment `dest[i] = 0` causes an overflow of one single byte at the index `*extracted_address[ia5_string_len].
+As you can see, after iterating for `len` times, the variable `i` evaluates exactly `len`, which in our case, as invoked in the previous snippet of code, is `ia5_string_len`. However, the addressable space in the buffer `*extracted_address` starts at 0 and ends at `ia5_string_len - 1`. Therefore, the assignment `dest[i] = 0` causes an overflow of one single byte at the index `*extracted_address[ia5_string_len]`.
 
-There are two possible ways to write a rule for this bug. The first standard one, is to use find all the data flows that have the dynamically allocated buffer as the source and an index access to that buffer as the sink. However, the issue with this strategy is that computing the dataflow in an interprocedural context can be very expensive, and indeed this strategy took roughly 4 hours with CodeQl and did not terminate with Joern.
+There are two possible ways to write a rule for this bug. The first standard one, is to find all the data flows that have the dynamically allocated buffer as the source and an index access to that buffer as the sink. However, the issue with this strategy is that computing the dataflow in an interprocedural context can be very expensive, and indeed this strategy took roughly 4 hours with CodeQl and did not terminate with Joern, in addition to the high false positives that it produced.
 While in many cases there could be only one way to model a bug, for this situation I thought about a different perspective to reduce the bug to an intraprocedural one, that on average, is way easier to detect.
-Indeed, one possible way to represent the vuln, is that the overflowing memory access uses a variable that is initialized in the header of a for loop, but is used outside the loop.
+Indeed, a possible idea here, is to consider that the overflowing memory access uses a variable that is initialized in the header of a for loop, but is used outside the loop.
 Thus, I designed a rule that individuates the variables used as counters within the loop and then identifies all times such variables are used to access a buffer outside the loop.
 Although I was expecting some false positives, this allowed me to do some tests in a more reasonable time, because in this way we can focus separately on each function instead of considering chains of multiple function.
 
@@ -176,6 +176,12 @@ Here instead, the snippet represents the script I used for Joern:
 ```
 
 Because of the inner structure of the CPG, I had to express the same concept in a different way. This time I could not create a one-line and I relied on some intermediate variables to create the rule.
+1. `loop_array_access` contains all accesses to a buffer within a for loop
+2. `array_access` is the set of the buffer accesses by means of an index (e.g., `buf` in `buf[i]`)
+3. `all_vars` represents all variables defined in a for loop
+4. `buffer_iterator_vars` are all variables used to perform index a buffer (e.g., `i` in `buf[i]`)
+5. `real_vars` are the actual variables that perform a buffer access whithin a loop and we obtain them with the intersection between `all_vars` and `buffer_iterator_vars`
+6. finally we compute the difference between the set of all buffer accesses (`array_access`) and the ones that are performed inside a loop (`loop_array_access`) and for each access in the diff we check if it is reachable by one of the variables computed at the previous step
 
 As you can see, in this case the two models differ a lot and require a different reasoning. 
 From my personal point of view, I found the syntax of CodeQl easier, in addition to the fact that performance-wise Joern took more time to complete the processing.
