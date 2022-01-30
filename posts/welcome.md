@@ -6,7 +6,7 @@ title:  "The Derby of Static Software Testing: Joern vs. CodeQl"
 
 # The Derby of Static Software Testing: Joern vs CodeQl
 
-Albeit I have to confess that my first temptation when looking for bugs in a source code file is to start to grep for `memcpy` or similar things, recently I had fun with two awesome tools for static software testing, namely, [Joern](https://joern.io/) and [CodeQl](https://codeql.github.com/). Both the tools share a similar phylosophy, that is, exporting an expressive domain-specific language to capture some code patterns and let the analyst interact with the code. In this quick blogpost, I will present some of the differences that I noticed when playing with the two tools, trying to give some indications and use-cases for each of the two.
+Albeit I have to confess that my first temptation when looking for bugs in a source code file is to start to grep for `memcpy` or similar things, recently I had fun with two awesome tools for static software testing, namely, [Joern](https://joern.io/) and [CodeQl](https://codeql.github.com/). Both the tools share a similar philosophy, that is, exporting an expressive domain-specific language to capture some code patterns and let the analyst interact with the code. In this quick blogpost, I will present some of the differences that I noticed when playing with the two tools, trying to give some indications and use-cases for each of the two.
 
 
 ### Scope
@@ -77,7 +77,7 @@ An example of query for CodeQl looks like the following snippet:
   select mi
 ```
 
-In the *from* statement, we declare what elements we need. In our case we need a *Macro* variable, to infer some properties of the macro definition, a *MacroInvocation* that represents the set of instancies of that macro when it is invoked along the code, and an *AddExpr* that collects all the addition expressions that we have in the source (sum of two integers, sum of two variables, ..).
+In the *from* statement, we declare what elements we need. In our case we need a *Macro* variable, to infer some properties of the macro definition, a *MacroInvocation* that represents the set of instances of that macro when it is invoked along the code, and an *AddExpr* that collects all the addition expressions that we have in the source (sum of two integers, sum of two variables, ..).
 The next step, is to specify the constraints of our subject in the *where* statement. For this example, we want all macros that contain the string ``ALLOC'' in the name and that, once invoked, use an addition as the 0-th argument (i.e., the first argument).
 Finally, in the *select* statement, we just say what we want to display.
 
@@ -93,7 +93,7 @@ If we wanted to hunt the same bug with Joern, we should write something like:
 
 Here, we do not have variables as in the previous case, but rather, each field performs a walk on the edges of the CPG. Quickly, we have that the *.call* part retrieves all the calls to a certain method (in our case all methods containing ``ALLOC''), the *.argument* field retrieves the arguments of such calls and finally select those ones that represent an addition. The *.p* field just prints out the result.
 
-The base idea behind the two rules is the same - catch the dynamic memory allocations whose argument is an addition. However, even if I kept the queries structure easy to reason about them, they present some differencies.
+The base idea behind the two rules is the same - catch the dynamic memory allocations whose argument is an addition. However, even if I kept the queries structure easy to reason about them, they present some differences.
 The first difference is that in CodeQl I had to explicitly refer the exact argument that we are interested in (*.getArgument(0)*) while Joern allows to refer generically to all arguments of a call.
 The second interesting difference, is that Joern can refer to all the invocations in the CPG with the simple *call* field (thus including both macro and function invocations) while for CodeQl I had to specify the fact that we are interested in a macro.
 Thus, looking at this scenario we learn that from the syntax point of view, Joern is probably a bit more generic than CodeQl.
@@ -192,7 +192,7 @@ Because of the inner structure of the CPG, I had to express the same concept in 
 2. `array_access` is the set of the buffer accesses by means of an index in the whole program (e.g., `buf` in `buf[i]`)
 3. `all_vars` represents all variables defined in a for loop in the entire program
 4. `buffer_iterator_vars` are all variables used to perform index a buffer (e.g., `i` in `buf[i]`)
-5. `real_vars` are the actual variables that perform a buffer access whithin a loop and we obtain them with the intersection between `all_vars` and `buffer_iterator_vars`
+5. `real_vars` are the actual variables that perform a buffer access within a loop and we obtain them with the intersection between `all_vars` and `buffer_iterator_vars`
 6. finally we compute the difference between the set of all buffer accesses (`array_access`) and the ones that are performed inside a loop (`loop_array_access`) and for each access in the diff we check if it is reachable by one of the variables computed at the previous step
 
 As you can see, in this case the two models differ a lot and require a different reasoning. 
