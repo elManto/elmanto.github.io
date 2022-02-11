@@ -1,6 +1,6 @@
 ---
 layout: default
-permalink: /posts/welcome
+permalink: /posts/sast_derby_joern_vs_codeql
 title:  "The Derby of Static Software Testing: Joern vs. CodeQl"
 ---
 
