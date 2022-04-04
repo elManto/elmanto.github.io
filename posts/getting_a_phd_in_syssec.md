@@ -4,6 +4,8 @@ permalink: /posts/getting_a_phd_in_syssec
 title:  "Getting a PhD in System Security"
 ---
 
+# Getting a Ph.D. in System Security -- the FAQ
+
 I remember when I was a master student, unsure about the path to take, and surrounded by questions like "Is the PhD a good road?" or some months later after my first papers rejected "Did I choose right?".
 Once, an old professor told me something like "doing a PhD is like a 3-year vacation". Probably to some extent or in some cases this sentence could be plausible, but more likely I guess this was an appealing way to convince young students to start a career in academia. 
 
