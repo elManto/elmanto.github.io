@@ -8,6 +8,23 @@ Here, I report a list of accepted papers and active projects that I worked on, s
 
 # Publications
 
+### ``Dissecting American Fuzzy Lop - A FuzzBench Evaluation'', A. Fioraldi, A. Mantovani, D. Maier, D. Balzarotti, FUZZING workshop 22
+
+A careful evaluation of several aspects that are at the base of the success of AFL. Experiments include measurements about different hitcounting strategies, different mutations, timeouts, scores, etc.
+
+**Keywords and tools**: AFL, Google Fuzzbench, LLVM
+
+--------
+
+### ``Fuzzing with Data Dependency Information'', A. Mantovani, A. Fioraldi, D. Balzarotti, EuroS&P 22
+
+A novel approach where we investigate how stressing combinations of def-use pairs affects feedback-driven fuzzing on 38 real-world target programs. Our methodology relies on an LLVM-based instrumentation that augments the edge-coverage by introducing carefully selected data-dependency edges.
+
+**Keywords and tools**: AFL++, LLVM, crash triage, afl-cov, context-sensitivity, ngram coverage, data-dependency graph, Google Fuzzbench, 0-day bugs
+
+
+--------
+
 ### ``The Convergence of Source Code and Binary Vulnerability Discovery - A Case Study'', A. Mantovani, L. Compagna, Y. Shoshitaishvili, D. Balzarotti, Asia CCS 22
 
 We experimented a new vulnerability approach where we lift a binary by means of a decompiler, and then we analyse the decompiled code with off-the-shelf static analysers.
