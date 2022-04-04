@@ -87,7 +87,7 @@ Obviously, not random stuff, but just what you exactly like. For instance, what 
 
 On top of this, I had the possibility to dedicate my time exactly on what I loved. One month I wanted to study nested operating system concepts and I had time for this. Another month I was studying compilers. Yet another one I was focusing on a new programming language. And this was not strongly required by my papers, was just for personal satisfaction and curiosity.
 
-This has also the advantage that you will conclude the Ph.D. with a new skill, that is, "learn to learn". When you get used to study things, grep in the source code, look for materials, well you'll become faster to approach also very different and complicated problems. But before ``learning to learn'' try to be sure, at the beginning of the Ph.D. that one of your interests is actually ``learning''. If you're not curious, then maybe the Ph.D. is not for you.
+This has also the advantage that you will conclude the Ph.D. with a new skill, that is, "learn to learn". When you get used to study things, grep in the source code, look for materials, well you'll become faster to approach also very different and complicated problems. But before "learning to learn" try to be sure, at the beginning of the Ph.D. that one of your interests is actually "learning". If you're not curious, then maybe the Ph.D. is not for you.
 
 ### The academic workflow
 
