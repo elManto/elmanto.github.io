@@ -6,38 +6,38 @@ title:  "Getting a PhD in System Security"
 
 # Getting a Ph.D. in System Security -- the FAQ
 
-I remember when I was a master student, unsure about the path to take, and surrounded by questions like "Is the PhD a good road?" or some months later after my first papers rejected "Did I choose right?".
-Once, an old professor told me something like "doing a PhD is like a 3-year vacation". Probably to some extent or in some cases this sentence could be plausible, but more likely I guess this was an appealing way to convince young students to start a career in academia. 
+I remember when I was a master's student, unsure about the path to take, and surrounded by questions like "Is the Ph.D. a good road?" or some months later, after my first papers rejected, "Did I choose right?".
+Once, an old professor told me something like, "doing a PhD is like a 3-year vacation". Probably to some extent, or in some cases, this sentence could be plausible, but more likely, I guess this was an appealing way to convince young students to start a career in academia. 
 
-This blogpost arises from here, from the lack of information about this road, and wants to describe my personal experience demystifying some common legends and answering some questions that future/current PhD students may have.
-I don't pretend that my point of view is shared among all of you and similarly that many people read this, but my hope is to give an hint to all students uncertain about what to do with their life after their Master Degree or during the academic period.
-Thus I will go through some points that I consider quite useful and informative and for each of them I'll highlight how my approach looks like. 
-I point out that the choices I did, don't necessarily have to be considered correct and it is very likely that the correctness depends on several other factors such as your interests, final goal, life style, etc.
+This blog post arises from here, from the lack of information about this road and wants to describe my personal experience demystifying some common legends and answering some questions that future/current Ph.D. students may have.
+I don't pretend that my point of view is shared among all of you and similarly that many people read this, but my hope is to give a hint to all students uncertain about what to do with their life after their Master's Degree or during the academic period.
+Thus I will go through some points that I consider quite useful and informative, and for each of them, I'll highlight what my approach looks like. 
+I point out that the choices I made don't necessarily have to be considered correct, and it is very likely that the correctness depends on several other factors such as your interests, final goal, lifestyle, etc.
 But I opted to tell the story ``as-is'', describing my personal point of view and collecting information just from one source: my direct experience.
 Finally, note that many of the aspects I will describe are related to the topic of my research, which is system security.
-While some points could be common with other research areas, honestly I do not know how mach overlapping there can be between security and other fields which are very far.
+While some points could be common with other research areas, honestly, I do not know how much overlapping there can be between security and other fields, which are very far.
 
 # Before starting
 
 ### My starting point
 
-When I started, one of the first things I noticed was the different background between me and the other doctoral students. 
+When I started, one of the first things I noticed was the different backgrounds between me and the other doctoral students. 
 Indeed I individuated three main scenarios. 
-Some students start the 3-year academic period with a super strong background on their topic. 
-Others instead, know very basic concepts related to the field of interest, but have good skills that allow them to overcome the initial difficulties (e.g., super good at coding).
+Some students start the 3-year academic period with a super-strong background on their topic. 
+Others, instead, know very basic concepts related to the field of interest but have good skills that allow them to overcome the initial difficulties (e.g., super good at coding).
 Somewhere between these two configurations, there was me.
 
-The university where I came from (University of Genoa) is definitely not a top one in Italy and at the same time it is not famous for providing super strong backgrounds in system security.
-During the MsC I took only ONE security class and ONE (very generic) operating system class while I believe these are the two fundamental subjects in my research area.
-Luckily I had the opportunity to meet some skilled people (mostly the PhDs of my old university) during the bachelor and the master degrees that helped me to move my first steps in security, for instance by introducing me to the CTF world or pointing me to some fundamental concepts of the field.
-With a bit of personal effort and some hints from the right people, in the last year of master degree I had some basic knowledge about several topics such as vulnerability detection and exploitation in simple web/C applications as well as reversing of binary code.
-Nothing special, but this allowed me to apply for a PhD position and be considered eligible for that.
+The university where I came from (University of Genoa) is definitely not a top one in Italy, and at the same time, it is not famous for providing a super-strong background in system security.
+During the MSc, I took only ONE security class and ONE (very generic) operating system class while I believe these are the two fundamental subjects in my research area.
+Luckily I had the opportunity to meet some skilled people (mostly the PhDs of my old university) during my bachelor's and master's degrees that helped me to move my first steps in security, for instance, by introducing me to the CTF world or pointing me to some fundamental concepts of the field.
+With a bit of personal effort and some hints from the right people, in the last year of master's degree, I had some basic knowledge about several topics such as vulnerability detection and exploitation in simple web/C applications as well as reversing of binary code.
+Nothing special, but this allowed me to apply for a Ph.D. position and be considered eligible for that.
 
 ### Is there anything I can do to understand if I like the PhD life?
 
-Try it yourself. Probably the best thing that you can do is to face a research problem alone, no matter if it gets published or not. For instance in my case, I focused my master thesis on a research project, that luckily in the end became a top-tier publication, even though obviously at that time I was not sure about the research direction.
+Try it yourself. Probably the best thing that you can do is to face a research problem alone, no matter if it gets published or not. For instance, in my case, I focused my master thesis on a research project that luckily, in the end, became a top-tier publication, even though obviously at that time I was not sure about the research direction.
 Understanding how the public research world works helped me a lot to realize that I really loved that activity. 
-This was probably one of the main motivations behind the choice of starting the PhD.
+This was probably one of the main motivations behind the choice of starting the Ph.D.
 
 
 
