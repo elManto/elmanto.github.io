@@ -87,7 +87,7 @@ TBH, one of the few things I would change about my Ph.D. is that at least during
 
 Another reason that motivated me was to spend a proper amount of time to learn new things because I felt that my level of preparation was unsufficient after the Master degree, at least for my personal standards. 
 While studying new concepts is not a thing you can do exclusively during a Ph.D., I believe this period is particularly suitable to learn novel approaches/technologies/tools/theories/etc.
-Now, what happened in my experience is that I learnt things from two separate sources.
+Now, what happened in my experience is that I learned things from two separate sources.
 Of course, doing research and experimenting with custom approaches to solve a certain security problem was the first one and it helped me a lot to learn new things on-the-fly.
 You can play with very different technologies and techniques that will become part of your background and at the same time you will be ready to increase your knowledge level about a specific topic.
 
@@ -129,7 +129,7 @@ This is kind-of unavoidable I think. It's unavoidable because it's basically imp
 
 ### Being advised
 
-DISCLAIMER: I had a very good relationship with my advisor and I cannot tell anything except that I learnt a lot with him.
+DISCLAIMER: I had a very good relationship with my advisor and I cannot tell anything except that I learned a lot with him.
 
 But in this section, I want to underline some patterns that I noticed in my personal experience (as well as in other student-advisor) relationships and that I find quite reasonable in the end.
 - First, this is quite trivial, but don't expect your advisor to write code or do technical things with you. This totally makes sense as professors are responsible for many other things (committees, other students, teaching, university internal things, looking for money to pay you, ..).
