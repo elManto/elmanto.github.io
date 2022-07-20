@@ -1,8 +1,8 @@
 # Whoami
 
-I am Alessandro Mantovani (aka `elmanto`), currently a Ph.D. student in the [S3](https://www.s3.eurecom.fr/) group at Eurecom. Previously, I got a B.Sc. and an M.sc. from the University of Genoa ([Universita' degli studi di Genova](https://unige.it/it/)).
+I am Alessandro Mantovani (aka `elmanto`), currently working at Qualcomm QPSI and ex Ph.D. student in the [S3](https://www.s3.eurecom.fr/) group at Eurecom.
 
-My research interests involve many areas of system security. For instance, during the last years, I worked on Reverse Engineering, Vulnerability Discovery, Program Analysis, Fuzzing and Malware Analysis. However, I have an inherent curiosity for other related areas such as emulation and operating systems.
+My research interests involve many areas of system security. For instance, during the last years, I worked on Reverse Engineering, Vulnerability Discovery, Program Analysis, Fuzzing and Malware Analysis. However, I have an inherent curiosity for other related areas such as compilers and operating systems..
 
 More generally, I love learning new things, ranging from low-level technical concepts to new hands-on practical skills. For example, recently I started to write Rust code for fun, despite the fact that as of now I do not have active projects that require Rust development.
 Another consequence of this "everyday learning" mood, led me to play CTFs, especially during the years of M.sc. and Ph.D., mainly with the [NOPS](https://www.s3.eurecom.fr/nops/index.html) team of Eurecom. As expected, my favorite categories are pwn and reversing.
