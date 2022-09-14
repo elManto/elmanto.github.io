@@ -69,7 +69,7 @@ At this point we can load the `__afl_are_ptr` at the index `cur_location ^ prev_
 
 Finally, we store the result of the addition at the same position inside the bitmap and we shift right the current location by 1:
 
-```C
+```c
             StoreInst* UpdateHits = IRB.CreateStore(Add, MapPtrIdx);
             UpdateHits->setMetadata(M.getMDKindID("nosanitize"), MDNode::get(*C, None));
 
@@ -80,7 +80,7 @@ Finally, we store the result of the addition at the same position inside the bit
 
 We're done! Now, we can think of many improvements. For instance, one thing that was introduced in AFL++ is to check that the hitcount never reaches 0 (otherwise this would result in a wrong coverage evaluation when the hitcount overflows). To achieve this, you can use the following code:
 
-```C
+```c
             Constant* ZeroConst = ConstantInt::get(Int8Ty, 0);
             auto comparisonFlag = IRB.CreateICmpEQ(Add, ZeroConst);
             auto carry = IRB.CreateZExt(comparisonFlag, Int8Ty);
@@ -90,7 +90,7 @@ We're done! Now, we can think of many improvements. For instance, one thing that
 At this point there's no limit to the potential improvements that can introduce. You can use two shared maps, you can create different feedback mechanisms, introduce a more lightweight instrumentation policy, etc. Here, just to report an example, I implemented an additional feedback based on context-sensitivity, i.e., when we reach a program point, we don't just take into account the two basic blocks but also the context (function calls invoked so far essentially).
 We assign a second random ID for each entry block and then this ID represents the context for that function. Thus, we update a variable to store the current value of the context (i.e., the xor of the previous function IDs).
 
-```C
+```c
     LoadInst* PrevCtxLoad = IRB.CreateLoad(AFLContext);
     PrevCtx = static_cast<Value*>(PrevCtxLoad);
     PrevCtxLoad->setMetadata(M.getMDKindID("nosanitize"), MDNode::get(*C, None));
@@ -105,14 +105,14 @@ We assign a second random ID for each entry block and then this ID represents th
 Now, if context-sensitivity is enabled, we need to include the context whenever we encode an edge in the shared memory. 
 Thus, we can xor the `PrevCtx` variable with the `PrevLoc`:
 
-```C
+```c
    PrevLoc = IRB.CreateZExt(IRB.CreateXor(PrevLoc, PrevCtx), Int32Ty);
 ```
 
 Finally, we need some code to restore the context whenever we exit from the function, e.g., when we meet a `ReturnInst`:
 
 
-```C
+```c
     if (isa<ReturnInst>(I)) {
         IRBuilder<> Restore_IRB(I);
         StoreInst* Restore = Restore_IRB.CreateStore(PrevCtx, AFLContext);
