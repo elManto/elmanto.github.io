@@ -11,3 +11,4 @@ title: "Blogpost"
 
 [Getting a PhD in System Security -- the FAQ](https://elmanto.github.io/posts/getting_a_phd_in_syssec)
 
+[LLVM Passes for Security 101: A Brief Introduction (Part 1/4)](https://elmanto.github.io/posts/llvm_for_security_1_4)
