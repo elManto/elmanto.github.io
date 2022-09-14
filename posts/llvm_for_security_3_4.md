@@ -111,7 +111,7 @@ At this point we can start writing our runtime. Now, the LLVM pass actually is f
 
 Essentially, the malloc hook (`allocator.c`) allocates more memory than the amount requested by the target program. This is needed to allocate the left/right redzones in the shadow memory. The instrumented malloc is responsible for unpoisoning the user data (accesses are allowed) and for poisoning the right/left redzones (accesses abort). Moreover, there's some logic to manage the alignment in a proper way.
 
-```C
+```c
 void* __learnsan_malloc(size_t size) {
     struct chunk_begin* p = malloc(sizeof(struct chunk_struct) + size);
     if (!p)
@@ -140,7 +140,7 @@ void* __learnsan_malloc(size_t size) {
 
 At the other side of the spectrum, our custom free (`allocator.c`) simply releases the memory and poison it, to indicate that future accesses will produce a use-after-free error.
 
-```C
+```c
 void __learnsan_free(void* ptr) {
     if (!ptr)
         return;
@@ -164,7 +164,7 @@ void __learnsan_free(void* ptr) {
 The store/load hooks map the accessed address to the shadow memory and check if the memory operation is valid or not (i.e., it touches a redzone). If yes, they print the stack trace and trigger the abort (and its naive message).
 The memory is encoded at the same way of AddressSanitizer (8 bytes of application memory map to 1 byte of shadow memory). Thus, this reflects what you can find in the AddressSanitizer paper. For instance, to check a load of 8 bytes:
 
-```C
+```c
 int learnsan_load8(void* ptr) {
     uintptr_t mem = (uintptr_t)ptr;
     uint8_t* shadow_addr = (uint8_t*) MEM_TO_SHADOW(mem);

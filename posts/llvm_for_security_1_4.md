@@ -167,7 +167,7 @@ Let's quickly see a few steps that are needed to write and execute our passes at
 
 First, there is some code that we need to register our pass and let the Pass Manager know that at some point he will have to run it. Much of this code is just to copy-and-paste, except for the pass name and a few other minor things:
 
-```llvm
+```c
 
 char Hello::ID = 0;
 static RegisterPass<Hello> X("hello", "Hello World Pass",
@@ -182,7 +182,7 @@ static RegisterStandardPasses Y(
 
 Then, you just need to derive the type of pass in your class/struct. For instance, in this case we're gonna derive from `ModulePass`. Our struct `Hello` will inherit the methods of `ModulePass`. Among the others, the most important one is the `runOnModule(Module &M)` that we definitely want to override to add our own code. In this snippet of code, we just print "Hello world" for each module that we compile:
 
-```llvm
+```c
 struct Hello : public ModulePass {
   static char ID;
   Hello() : ModulePass(ID) {}
