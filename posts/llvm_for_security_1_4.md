@@ -4,6 +4,7 @@ permalink: /posts/llvm_for_security_1_4
 title:  "LLVM Passes for Security: A Brief Introduction (Part 1/4)"
 ---
 
+# LLVM Passes for Security: A Brief Introduction (Part 1/4)
 
 ## Abstract 
 
