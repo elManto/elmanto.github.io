@@ -10,7 +10,7 @@ title:  "LLVM Passes for Security: (Part 4/4)"
 
 ## Abstract
 
-This module doesn't add too many novel concepts, compared to the previous ones, but still, it shows a trending application of LLVM for security, i.e., fuzzing. Our goal is to create a pass that instrument a target to log the code coverage. As a further exercise, we'll then implement an additional instrumentation feature, i.e., context sensitivity. 
+This module doesn't add too many novel concepts, compared to the previous ones, but still, it shows a trending application of LLVM for security, i.e., fuzzing. Our goal is to create a pass that instruments a target to log the code coverage. As a further exercise, we'll then implement an additional instrumentation feature, i.e., context sensitivity (simply taken from AFL++).. 
 Our refernce tool will be AFL++, and thus our pass will work with this fuzzer, even though in principle many of the ideas we're going to exploare are equivalent with other fuzzers.
 
 
@@ -121,4 +121,4 @@ Finally, we need some code to restore the context whenever we exit from the func
     }
 ```
 
-Don't forget that at compile-time you'll have to link against the object file that contains the AFL++ runtime named `afl-compiler-rt.o` (see the `cc` compiler wrapper python script).
+Don't forget that at compile-time you'll have to link against the object file that contains the AFL++ runtime named `afl-compiler-rt.o` (see the `cc` compiler wrapper python script). Now you can compile a target with our wrapper `cc.py` and let the fuzzer run.

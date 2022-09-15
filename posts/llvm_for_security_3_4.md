@@ -22,7 +22,7 @@ It's time to implement our first transformation pass. Among the several applicat
 
 AddressSanitizer is a memory errors detector that works essentially in two steps. At compile-time instrumentation is injected and at runtime the actual checks are performed for each type of memory access (stack, heap, ..). For our implementation we'll focus on heap-related vulnerabilities. In particular, our tool will be able to detect heap-based buffer overflows (or underflows) and use-after-free vulns. Also, for laziness, I didn't implement an instrumentation logic to catch overflow/use-after-free issues originated inside libc APIs like memcpy, strcpy, etc. The point is that we'll see how to instrument several points in the IR and after learning that, instrumenting other APIs will be just a matter of writing more code.
 
-In the follow up I assume that you already have a basic understanding of how ASAN works.
+In the follow up I assume that you already have a basic understanding of how ASAN works. Refer to [this](https://github.com/elManto/LLVMPassesForSecurity/tree/main/src/MySanitizer) for the full code.
 
 ### Our implementation
 
@@ -107,7 +107,7 @@ Next, we want to instrument all memory accesses, thus the `Load` and the `Store`
 Lastly, we replace all the `malloc` and `free` invocations with our hooks `__hook_malloc` and `__hook_free`. In this case, as the signature of the two functions is exactly the same, we just need to invoke the LLVM method `Call->setCalledFunction()`.
 
 
-At this point we can start writing our runtime. Now, the LLVM pass actually is finished and the runtime actually doesn't introduce any new LLVM concepts, therefore my description here won't go in details but you will have the source code anyway.
+At this point we can start writing our runtime. Now, the LLVM pass actually is finished and the runtime actually doesn't introduce any new LLVM concepts, therefore my description here won't go in details but you will have the source code anyway in the [repo](https://github.com/elManto/LLVMPassesForSecurity/tree/main/src/MySanitizer).
 
 Essentially, the malloc hook (`allocator.c`) allocates more memory than the amount requested by the target program. This is needed to allocate the left/right redzones in the shadow memory. The instrumented malloc is responsible for unpoisoning the user data (accesses are allowed) and for poisoning the right/left redzones (accesses abort). Moreover, there's some logic to manage the alignment in a proper way.
 
