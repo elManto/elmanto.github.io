@@ -122,3 +122,5 @@ Finally, we need some code to restore the context whenever we exit from the func
 ```
 
 Don't forget that at compile-time you'll have to link against the object file that contains the AFL++ runtime named `afl-compiler-rt.o` (see the `cc` compiler wrapper python script). Now you can compile a target with our wrapper `cc.py` and let the fuzzer run.
+
+As for the other passes that we developed in this course, you can find the code [here](https://github.com/elManto/LLVMPassesForSecurity/tree/main/src/FuzzingPass).

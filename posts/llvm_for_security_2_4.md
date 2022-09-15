@@ -41,6 +41,8 @@ IMHO, these are all fundamental features that we would expect from a production 
  
 ### Our implementation
 
+Before beginning, code is available at this [repo](https://github.com/elManto/LLVMPassesForSecurity) along with the Makefiles, scripts, ..
+
 In the first part of our pass, we deal with the collection of the constraints. This happens by looking at several values present in the LLVM IR such as the instruction operands and the function arguments. The first thing that we want to do is the collect the return nodes for all functions that return a pointer type. Thus we need to iterate all functions with a classical LLVM construct:
 
 ```c
