@@ -15,9 +15,9 @@ So, this first chapter deals with the LLVM architecture and its IR (Intermediate
 Then, in the following three modules, we'll go to apply these concepts in three typical use cases that show the use of LLVM for security related tasks. More specifically, we'll develop three LLVM passes, trying to understand step by step the core APIs of the framework as well as the concepts. Obviously, three passes cannot cover the entire set of LLVM security applications that one may deploy, but I strongly believe that this will help to build a base knowledge around this technology in the scope of security. Here you can find the structure of the course:
 
 1. Introduction to LLVM, its IR and our Hello World pass
-2. Our first Analysis Pass -- Pointer Analysis
-3. A Transformation Pass -- Address Sanitizer
-4. A Pass for Fuzzing -- Coverage and Context Sensitivity
+2. Our first Analysis Pass -- **Pointer Analysis**
+3. A Transformation Pass -- **Address Sanitizer**
+4. A Pass for Fuzzing -- **Coverage and Context Sensitivity**
 
 ### A Compiler Architecture in a Nutshell
 
