@@ -143,7 +143,7 @@ But in this section, I want to underline some patterns that I noticed in my pers
 Another soft skill you'll be developing during your Ph.D. is, in several cases, the ``team working''. Indeed, in several cases a research project has several co-authors where at least two or three co-operate to produce the results in a faster way. 
 I believe this is very good, because you can try different configurations of your team depending on the paper. And moreover, typically you will meet people with a different background, modus operandi and other aspects such as the seniority.
 While you should see this as an opportunity, giving to you the chances to improve yourself and compare your way of working with other people that potentially have worked in that field for several years, there could be cases where the co-operation is made more difficult because of certain aspects. 
-The best thing you can do is to agree wit the co-authors about the code and the strategies you are following before the final implementations. It's annoying to change your 1-month codebase after a discussion with a co-author but it's way better to sync on this at the very beginning.
+The best thing you can do is to agree with the co-authors about the code and the strategies you are following before the final implementations. It's annoying to change your 1-month codebase after a discussion with a co-author but it's way better to sync on this at the very beginning.
 Then, IMHO it's better to split the tasks in threads, a thread for co-author. Then, everyone works on a specific part of the project and there are no annoying overlappings that could result in hazards.
 Finally, if the problem is more on the human side, then this is more a general question, but I believe that you should try to ignore the personal problems and involve your advisor only if the situation becomes hot.
 
@@ -167,7 +167,7 @@ This is quite obvious, but to be 100% clear: you don't start a Ph.D. for money, 
 In my case the net salary was approximately 1750 euros + ~150 euros of tickets to buy food. Life in the French Riviera (where EURECOM is located) is not cheap, a studio can be between 600 to 750 euros per month, and in addition you have to eat, live, and maintain a car (not mandatory, but I had it). 
 By doing some maths, you can easily see that I didn't become rich during the Ph.D. but in the end I could survive and still save some money.
 
-And moreover, there are other incentives for you. Want to know what? Each conference paper accepted is one trip in a cool city (at least usually) and the university/lab typically pays entirely it. Obviously I was not that lucky because at the second year covid-19 stated and lasted until the end of the third year, but you'll be definitely more lucky than me.
+And moreover, there are other incentives for you. Want to know what? Each conference paper accepted is one trip in a cool city (at least usually) and the university/lab typically pays entirely it. Obviously I was not that lucky because at the second year covid-19 started and lasted until the end of the third year, but you'll be definitely more lucky than me.
 For instance, the only conference that I attended was NDSS, that historically takes place in San Diego. I let you imagine how carefully I attended the conference ;)
 
 # After the Ph.D.
